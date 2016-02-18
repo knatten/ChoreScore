@@ -29,20 +29,6 @@
         <PageControl Active="Scores" Dock="Fill">
             <Page Name="Settings"/>
             <Page Name="Scores">
-                <ScrollView>
-                    <StackPanel>
-                        <Each Items="{persons}">
-                            <DockPanel Background="#5A6571">
-                                <Text Value="{name}" />
-                                <Text Value="{score}" Dock="Right"/>
-                                <Clicked>
-                                    <DebugAction Message="{name}" />
-                                </Clicked>
-                            </DockPanel>
-                        </Each>
-                    </StackPanel>
-                </ScrollView>
-
                 <Panel Alignment="BottomRight" Margin="10">
                     <Panel ux:Name="plus">
                         <Rectangle Height="3" Width="30" Fill="#e5e8ed" ux:Name="tmp"/>
@@ -59,6 +45,19 @@
                     </Clicked>
                     <Rectangle CornerRadius="35" Fill="#fd9308" Height="70" Width="70"/>
                 </Panel>
+                <ScrollView>
+                    <StackPanel>
+                        <Each Items="{persons}">
+                            <DockPanel Background="#5A6571">
+                                <Text Value="{name}" />
+                                <Text Value="{score}" Dock="Right"/>
+                                <Clicked>
+                                    <DebugAction Message="{name}" />
+                                </Clicked>
+                            </DockPanel>
+                        </Each>
+                    </StackPanel>
+                </ScrollView>
 
                 <WhileTrue ux:Name="adding">
                     <Change addState.Active="panel"/>
