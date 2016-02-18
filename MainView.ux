@@ -29,24 +29,48 @@
         <PageControl Active="Scores" Dock="Fill">
             <Page Name="Settings"/>
             <Page Name="Scores">
-                <ScrollViewer>
+                <ScrollView>
                     <StackPanel>
                         <Each Items="{persons}">
                             <DockPanel Background="#5A6571">
                                 <Text Value="{name}" />
                                 <Text Value="{score}" Dock="Right"/>
+                                <Clicked>
+                                    <DebugAction Message="{name}" />
+                                </Clicked>
                             </DockPanel>
                         </Each>
                     </StackPanel>
-                </ScrollViewer>
+                </ScrollView>
 
                 <Panel Alignment="BottomRight" Margin="10">
-                    <Rectangle Height="3" Width="30" Fill="#e5e8ed"/>
-                    <Rectangle Height="3" Width="30" Fill="#e5e8ed">
-                        <Rotation Degrees="90" />
-                    </Rectangle>
+                    <Panel ux:Name="plus">
+                        <Rectangle Height="3" Width="30" Fill="#e5e8ed" ux:Name="tmp"/>
+                        <Rectangle Height="3" Width="30" Fill="#e5e8ed">
+                            <Rotation Degrees="90" />
+                        </Rectangle>
+                        <Clicked>
+                            <DebugAction Message="panel" />
+                            <Toggle Target="adding" />
+                        </Clicked>
+                    </Panel>
+                    <Clicked>
+                        <DebugAction Message="outer panel" />
+                    </Clicked>
                     <Rectangle CornerRadius="35" Fill="#fd9308" Height="70" Width="70"/>
                 </Panel>
+
+                <WhileTrue ux:Name="adding">
+                    <Change addState.Active="panel"/>
+                </WhileTrue>
+
+                <StateGroup ux:Name="addState" Rest="button">
+                    <State ux:Name="button">
+                    </State>
+                    <State ux:Name="panel">
+                        <Scale Target="plus" Factor="0"/>
+                    </State>
+                </StateGroup>
             </Page>
         </PageControl>
         <BottomBarBackground Dock="Bottom" />
