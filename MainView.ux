@@ -1,0 +1,11 @@
+<App Theme="Basic" Background="#e5e8ed">
+	<DockPanel>
+		<iOS.StatusBarConfig ux:Name="statusBarConfig" Style="Light" IsVisible="true"/>
+		<PageControl Active="Scores" Dock="Fill">
+	        <Page Name="Settings"/>
+	        <Page Name="Scores"/>
+	    </PageControl>
+		<BottomBarBackground Dock="Bottom" />
+	</DockPanel>
+</App>
+
