@@ -1,11 +1,44 @@
 <App Theme="Basic" Background="#e5e8ed">
-	<DockPanel>
-		<iOS.StatusBarConfig ux:Name="statusBarConfig" Style="Light" IsVisible="true"/>
-		<PageControl Active="Scores" Dock="Fill">
-	        <Page Name="Settings"/>
-	        <Page Name="Scores"/>
-	    </PageControl>
-		<BottomBarBackground Dock="Bottom" />
-	</DockPanel>
+    <JavaScript>
+    var Observable = require("FuseJS/Observable");
+
+    function Person(name)
+    {
+        this.name = name;
+        this.score = 0;
+    }
+
+    var persons = Observable(
+        new Person("Alice"),
+        new Person("Bob"),
+        new Person("Eve")
+        );
+
+    module.exports = {'persons':persons}
+    </JavaScript>
+
+    <DockPanel>
+        <Style>
+            <Text TextColor="#e5e8ed" FontSize="20" Margin="5"/>
+            <DockPanel Margin="2,1,2,1" />
+        </Style>
+        <iOS.StatusBarConfig ux:Name="statusBarConfig" Style="Light" IsVisible="true"/>
+        <PageControl Active="Scores" Dock="Fill">
+            <Page Name="Settings"/>
+            <Page Name="Scores">
+                <ScrollViewer>
+                    <StackPanel>
+                        <Each Items="{persons}">
+                            <DockPanel Background="#5A6571">
+                                <Text Value="{name}" />
+                                <Text Value="{score}" Dock="Right"/>
+                            </DockPanel>
+                        </Each>
+                    </StackPanel>
+                </ScrollViewer>
+            </Page>
+        </PageControl>
+        <BottomBarBackground Dock="Bottom" />
+    </DockPanel>
 </App>
 
