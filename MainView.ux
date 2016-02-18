@@ -11,6 +11,9 @@
     var persons = Observable(
         new Person("Alice"),
         new Person("Bob"),
+        new Person("Bob"),
+        new Person("Bob"),
+        new Person("Bob"),
         new Person("Eve")
         );
 
@@ -36,6 +39,14 @@
                         </Each>
                     </StackPanel>
                 </ScrollViewer>
+
+                <Panel Alignment="BottomRight" Margin="10">
+                    <Rectangle Height="3" Width="30" Fill="#e5e8ed"/>
+                    <Rectangle Height="3" Width="30" Fill="#e5e8ed">
+                        <Rotation Degrees="90" />
+                    </Rectangle>
+                    <Rectangle CornerRadius="35" Fill="#fd9308" Height="70" Width="70"/>
+                </Panel>
             </Page>
         </PageControl>
         <BottomBarBackground Dock="Bottom" />
