@@ -30,19 +30,15 @@
             <Page Name="Settings"/>
             <Page Name="Scores">
                 <Panel Alignment="BottomRight" Margin="10">
-                    <Panel ux:Name="plus">
+                    <Panel ux:Name="plus" HitTestMode="LocalBoundsAndChildren">
                         <Rectangle Height="3" Width="30" Fill="#e5e8ed" ux:Name="tmp"/>
                         <Rectangle Height="3" Width="30" Fill="#e5e8ed">
                             <Rotation Degrees="90" />
                         </Rectangle>
                         <Clicked>
-                            <DebugAction Message="panel" />
                             <Toggle Target="adding" />
                         </Clicked>
                     </Panel>
-                    <Clicked>
-                        <DebugAction Message="outer panel" />
-                    </Clicked>
                     <Rectangle CornerRadius="35" Fill="#fd9308" Height="70" Width="70"/>
                 </Panel>
                 <ScrollView>
@@ -51,9 +47,6 @@
                             <DockPanel Background="#5A6571">
                                 <Text Value="{name}" />
                                 <Text Value="{score}" Dock="Right"/>
-                                <Clicked>
-                                    <DebugAction Message="{name}" />
-                                </Clicked>
                             </DockPanel>
                         </Each>
                     </StackPanel>
