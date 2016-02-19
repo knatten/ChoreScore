@@ -18,8 +18,8 @@
     </JavaScript>
 
     <Panel ux:Class="Plus" HitTestMode="LocalBoundsAndChildren">
-        <Rectangle Height="3" Width="30" Fill="#e5e8ed"/>
-        <Rectangle Height="3" Width="30" Fill="#e5e8ed">
+        <Rectangle Height="3" Width="25" Fill="#e5e8ed"/>
+        <Rectangle Height="3" Width="25" Fill="#e5e8ed">
             <Rotation Degrees="90" />
         </Rectangle>
     </Panel>
@@ -31,16 +31,18 @@
             <DockPanel Margin="2,1,2,1" />
         </Style>
         <iOS.StatusBarConfig ux:Name="statusBarConfig" Style="Light" IsVisible="true"/>
+
         <PageControl Active="Scores" Dock="Fill">
             <Page Name="Settings"/>
             <Page Name="Scores">
-                <Panel Alignment="BottomRight" Margin="10" ux:Name="addPanel" Height="70" Width="70">
+
+                <Panel ux:Name="addPanel" Margin="10" >
                     <Plus ux:Name="plus">
                         <Clicked>
                             <Toggle Target="adding" />
                         </Clicked>
                     </Plus>
-                    <StackPanel Opacity="0" ux:Name="addPersons">
+                    <StackPanel Opacity="1" ux:Name="addPersons">
                         <Each Items="{persons}">
                             <Text Value="{name}">
                                 <Clicked>
@@ -50,8 +52,15 @@
                         </Each>
                         <TextInput />
                     </StackPanel>
-                    <Rectangle CornerRadius="35" Fill="#fd9308" ux:Name="addRect"/>
+                    <Rectangle Fill="#fd9308" ux:Name="addRect"/>
+                    <LayoutAnimation>
+                        <Move RelativeTo="WorldPositionChange" X="1" Y="1" Duration="0.3" Easing="CubicIn" />
+                        <Resize RelativeTo="SizeChange" X="1" Y="1" Duration="0.3" Easing="CubicIn" />
+                    </LayoutAnimation>
                 </Panel>
+
+                <Panel Alignment="BottomRight" ux:Name="corner" Height="70" Width="70" />
+
                 <ScrollView>
                     <StackPanel>
                         <Each Items="{persons}">
@@ -63,21 +72,28 @@
                     </StackPanel>
                 </ScrollView>
 
-                <WhileTrue ux:Name="adding">
-                    <Change addState.Active="panel"/>
+                <WhileFalse ux:Name="adding">
+                    <Change addPanel.LayoutMaster="corner" />
+                    <Change addRect.CornerRadius="35" Duration=".3" Easing="CubicIn"/>
+                    <Change addPersons.Opacity="0" Duration=".3" DelayBack=".3" Easing="CubicIn"/>
+                    <Change addState.Active="button"/>
+                    <DebugAction Message="adding false"/>
+                    <!-- Change addState.Active="panel"/>
                     <Change addPersons.Opacity="1" Duration=".3" Delay=".3" Easing="CubicIn"/>
                     <Change addRect.CornerRadius="0" Duration=".3" Easing="CubicIn"/>
                     <Change addPanel.Height="300" Duration=".3" Easing="CubicIn"/>
-                    <Change addPanel.Width="200" Duration=".3" Easing="CubicIn"/>
-                </WhileTrue>
+                    <Change addPanel.Width="200" Duration=".3" Easing="CubicIn"/ -->
+                </WhileFalse>
 
-                <StateGroup ux:Name="addState" Rest="button">
+                <StateGroup ux:Name="addState" Rest="panel">
                     <State ux:Name="button">
                         <BringToFront Target="plus" />
+                        <DebugAction Message="State:button"/>
                     </State>
                     <State ux:Name="panel">
                         <Scale Target="plus" Factor="0" Duration=".3" DurationBack="2" DelayBack="3"/>
                         <SendToBack Target="plus" Delay=".3" />
+                        <DebugAction Message="State:panel"/>
                     </State>
                 </StateGroup>
             </Page>
