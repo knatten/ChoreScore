@@ -24,7 +24,7 @@
         </Rectangle>
     </Panel>
 
-    <DockPanel>
+    <ClientPanel>
         <Style>
             <Text TextColor="#e5e8ed" FontSize="20" Margin="5"/>
             <TextInput TextColor="#e5e8ed" FontSize="20" Margin="5"/>
@@ -34,7 +34,7 @@
         <PageControl Active="Scores" Dock="Fill">
             <Page Name="Settings"/>
             <Page Name="Scores">
-                <Panel Alignment="BottomRight" Margin="10" ux:Name="addPanel"  Height="70" Width="70">
+                <Panel Alignment="BottomRight" Margin="10" ux:Name="addPanel" Height="70" Width="70">
                     <Plus ux:Name="plus">
                         <Clicked>
                             <Toggle Target="adding" />
@@ -82,6 +82,5 @@
                 </StateGroup>
             </Page>
         </PageControl>
-        <BottomBarBackground Dock="Bottom" />
-    </DockPanel>
+    </ClientPanel>
 </App>
