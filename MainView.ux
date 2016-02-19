@@ -47,7 +47,7 @@
             <Page Name="Scores">
 
                 <Panel ux:Name="addPanel" Margin="10" >
-                    <Plus ux:Name="plus">
+                    <Plus ux:Name="plus" HitTestMode="None">
                         <Clicked>
                             <Toggle Target="adding" />
                         </Clicked>
@@ -92,6 +92,7 @@
                     <Change addPersons.Opacity="0" Duration=".1" DurationBack=".1" Easing="CubicIn"/>
                     <Change plus.Opacity="1" Duration=".1" DurationBack=".1"/>
                     <Change addPersons.HitTestMode="LocalBounds" />
+                    <Change plus.HitTestMode="LocalBounds" />
                 </WhileTrue>
 
             </Page>
