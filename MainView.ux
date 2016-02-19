@@ -5,7 +5,13 @@
     function Person(name)
     {
         this.name = name;
-        this.score = 0;
+        this.score = Observable(0);
+    }
+
+    function bumpScore(sender)
+    {
+        console.log("Scored " + sender.data.name);
+        sender.data.score.value = sender.data.score.value + 1;
     }
 
     var persons = Observable(
@@ -14,10 +20,14 @@
         new Person("Eve")
         );
 
-    module.exports = {'persons':persons}
+    module.exports = {
+        persons:persons,
+        bumpScore:bumpScore
+    }
+
     </JavaScript>
 
-    <Panel ux:Class="Plus" ux:Name="self" HitTestMode="LocalBoundsAndChildren" Opacity="0">
+    <Panel ux:Class="Plus" ux:Name="self" Opacity="0">
         <Rectangle Height="3" Width="25" Fill="#e5e8ed"/>
         <Rectangle Height="3" Width="25" Fill="#e5e8ed">
             <Rotation Degrees="90" />
@@ -42,9 +52,9 @@
                             <Toggle Target="adding" />
                         </Clicked>
                     </Plus>
-                    <StackPanel Opacity="1" ux:Name="addPersons">
+                    <StackPanel Opacity="1" ux:Name="addPersons" HitTestMode="LocalBoundsAndChildren">
                         <Each Items="{persons}">
-                            <Text Value="{name}">
+                            <Text Value="{name}" Clicked="{bumpScore}">
                                 <Clicked>
                                     <Toggle Target="adding" />
                                 </Clicked>
@@ -75,13 +85,13 @@
                 <WhileFalse ux:Name="adding">
                     <Change addPanel.LayoutMaster="corner" />
                     <Change buttonMode.Value="true" />
-                    <DebugAction Message="adding is false" />
                 </WhileFalse>
 
                 <WhileTrue ux:Name="buttonMode">
                     <Change addRect.CornerRadius="35" Duration=".3" Easing="CubicIn"/>
                     <Change addPersons.Opacity="0" Duration=".1" DurationBack=".1" Easing="CubicIn"/>
                     <Change plus.Opacity="1" Duration=".1" DurationBack=".1"/>
+                    <Change addPersons.HitTestMode="LocalBounds" />
                 </WhileTrue>
 
             </Page>
