@@ -17,7 +17,7 @@
     module.exports = {'persons':persons}
     </JavaScript>
 
-    <Panel ux:Class="Plus" HitTestMode="LocalBoundsAndChildren">
+    <Panel ux:Class="Plus" ux:Name="self" HitTestMode="LocalBoundsAndChildren" Opacity="0">
         <Rectangle Height="3" Width="25" Fill="#e5e8ed"/>
         <Rectangle Height="3" Width="25" Fill="#e5e8ed">
             <Rotation Degrees="90" />
@@ -74,28 +74,16 @@
 
                 <WhileFalse ux:Name="adding">
                     <Change addPanel.LayoutMaster="corner" />
-                    <Change addRect.CornerRadius="35" Duration=".3" Easing="CubicIn"/>
-                    <Change addPersons.Opacity="0" Duration=".3" DelayBack=".3" Easing="CubicIn"/>
-                    <Change addState.Active="button"/>
-                    <DebugAction Message="adding false"/>
-                    <!-- Change addState.Active="panel"/>
-                    <Change addPersons.Opacity="1" Duration=".3" Delay=".3" Easing="CubicIn"/>
-                    <Change addRect.CornerRadius="0" Duration=".3" Easing="CubicIn"/>
-                    <Change addPanel.Height="300" Duration=".3" Easing="CubicIn"/>
-                    <Change addPanel.Width="200" Duration=".3" Easing="CubicIn"/ -->
+                    <Change buttonMode.Value="true" />
+                    <DebugAction Message="adding is false" />
                 </WhileFalse>
 
-                <StateGroup ux:Name="addState" Rest="panel">
-                    <State ux:Name="button">
-                        <BringToFront Target="plus" />
-                        <DebugAction Message="State:button"/>
-                    </State>
-                    <State ux:Name="panel">
-                        <Scale Target="plus" Factor="0" Duration=".3" DurationBack="2" DelayBack="3"/>
-                        <SendToBack Target="plus" Delay=".3" />
-                        <DebugAction Message="State:panel"/>
-                    </State>
-                </StateGroup>
+                <WhileTrue ux:Name="buttonMode">
+                    <Change addRect.CornerRadius="35" Duration=".3" Easing="CubicIn"/>
+                    <Change addPersons.Opacity="0" Duration=".1" DurationBack=".1" Easing="CubicIn"/>
+                    <Change plus.Opacity="1" Duration=".1" DurationBack=".1"/>
+                </WhileTrue>
+
             </Page>
         </PageControl>
     </ClientPanel>
