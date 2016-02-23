@@ -1,6 +1,38 @@
 <App Theme="Basic" Background="#e5e8ed">
     <JavaScript>
     var Observable = require("FuseJS/Observable");
+    var Lifecycle = require("FuseJS/Lifecycle");
+    var Storage = require("FuseJS/Storage");
+    var personsFile = "persons.json";
+
+    Lifecycle.onEnteringBackground = function()
+    {
+        console.log("Entering background");
+        Save();
+    }
+
+    var Save = function()
+    {
+        console.log("Saving data to " + personsFile);
+        Storage.write(personsFile, JSON.stringify(persons)).then(function (result){
+            console.log("Result of saving file " + result);
+        });
+    }
+
+    var Load = function()
+    {
+        console.log("Loading data from " + personsFile);
+        Storage.read(personsFile).then(function(content){
+            console.log("Loaded data from file:");
+            console.log(content);
+            console.log("Populating model");
+            persons = JSON.parse(content);
+            console.log("Done populating model");
+        }, function(error){
+            console.log("Failed to load data from " + personsFile)
+            console.log(error);
+        });
+    }
 
     function Person(name)
     {
@@ -24,6 +56,8 @@
         persons:persons,
         bumpScore:bumpScore
     }
+
+    Load();
 
     </JavaScript>
 
