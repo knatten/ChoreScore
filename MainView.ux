@@ -14,7 +14,7 @@
     var Save = function()
     {
         console.log("Saving data to " + personsFile);
-        Storage.write(personsFile, JSON.stringify(persons)).then(function (result){
+        Storage.write(personsFile, JSON.stringify(persons.value)).then(function (result){
             console.log("Result of saving file " + result);
         });
     }
@@ -26,7 +26,7 @@
             console.log("Loaded data from file:");
             console.log(content);
             console.log("Populating model");
-            persons = JSON.parse(content);
+            persons.value = JSON.parse(content);
             console.log("Done populating model");
         }, function(error){
             console.log("Failed to load data from " + personsFile)
