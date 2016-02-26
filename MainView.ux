@@ -110,7 +110,7 @@
                     </Plus>
                     <StackPanel Opacity="1" ux:Name="addPersons" HitTestMode="LocalBoundsAndChildren">
                         <Each Items="{persons}">
-                            <Text Value="{name}" Clicked="{bumpScore}">
+                            <Text Value="{name}" Clicked="{bumpScore}" Alignment="Left">
                                 <Clicked>
                                     <Toggle Target="adding" />
                                 </Clicked>
