@@ -99,15 +99,10 @@
             </Page>
             <Page Name="Scores">
                 <Panel ux:Name="addPanel" Margin="10" >
-                    <Plus ux:Name="plus">
+                    <Plus ux:Name="plus" HitTestMode="LocalBounds">
                         <Clicked>
                             <Toggle Target="adding" />
-                            <Toggle Target="addNewEnabled" />
                         </Clicked>
-                        <WhileTrue ux:Name="addNewEnabled" Value="false">
-                            <DebugAction Message="" /> <!-- this line prevents Fuse from crashing -->
-                            <Clicked Handler="{addPerson}" />
-                        </WhileTrue>
                     </Plus>
                     <StackPanel Opacity="1" ux:Name="addPersons" HitTestMode="LocalBoundsAndChildren">
                         <Each Items="{persons}">
@@ -119,7 +114,11 @@
                         </Each>
                         <DockPanel>
                             <TextInput Value="{newPerson}"/>
-                            <Panel Dock="Right" Width="30" ux:Name="addNewPanel"/>
+                            <Panel Dock="Right" Width="30" Height="30" ux:Name="addNewPanel" Clicked="{addPerson}" HitTestMode="LocalBounds">
+                                <Clicked>
+                                    <Toggle Target="adding" />
+                                </Clicked>
+                            </Panel>
                         </DockPanel>
                     </StackPanel>
                     <Rectangle Fill="#fd9308" ux:Name="addRect"/>
@@ -149,8 +148,8 @@
                 </WhileFalse>
 
                 <WhileTrue ux:Name="panelMode" Value="true">
-                    <DebugAction Message="we're a panel now" />
                     <Change plus.LayoutMaster="addNewPanel" />
+                    <Change plus.HitTestMode="None" />
                 </WhileTrue>
 
                 <WhileTrue ux:Name="buttonMode">
