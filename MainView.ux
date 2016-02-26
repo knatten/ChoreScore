@@ -117,7 +117,7 @@
                             </Text>
                         </Each>
                         <DockPanel>
-                            <TextInput Value="{newPerson}"/>
+                            <TextInput Value="{newPerson}" PlaceholderText="Enter name"/>
                             <Panel Dock="Right" Width="30" Height="30" ux:Name="addNewPanel" Clicked="{addPerson}" HitTestMode="LocalBounds">
                                 <Clicked>
                                     <Toggle Target="adding" />
