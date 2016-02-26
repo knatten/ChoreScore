@@ -14,9 +14,10 @@
     var Save = function()
     {
         console.log("Saving data to " + personsFile);
-        Storage.write(personsFile, JSON.stringify(persons)).then(function (result){
-            console.log("Result of saving file " + result);
-        });
+        var serialized = [];
+        persons.forEach(function(p){serialized.push({'name':p.name, 'score':p.score.value})});
+        var result = Storage.writeSync(personsFile, JSON.stringify(serialized));
+        console.log("Result of saving file: " + result);
     }
 
     var Load = function()
@@ -26,7 +27,9 @@
             console.log("Loaded data from file:");
             console.log(content);
             console.log("Populating model");
-            persons = JSON.parse(content);
+            var deserialized = JSON.parse(content);
+            persons.clear();
+            deserialized.forEach(function(p){persons.add(new Person(p.name, p.score))});
             console.log("Done populating model");
         }, function(error){
             console.log("Failed to load data from " + personsFile)
@@ -34,10 +37,10 @@
         });
     }
 
-    function Person(name)
+    function Person(name, score)
     {
         this.name = name;
-        this.score = Observable(0);
+        this.score = Observable(score);
     }
 
     function bumpScore(sender)
@@ -47,14 +50,15 @@
     }
 
     var persons = Observable(
-        new Person("Alice"),
-        new Person("Bob"),
-        new Person("Eve")
+        new Person("Alice", 0),
+        new Person("Bob", 0),
+        new Person("Eve", 0)
         );
 
     module.exports = {
         persons:persons,
-        bumpScore:bumpScore
+        bumpScore:bumpScore,
+        tmpDebug:Save //TODO delete
     }
 
     Load();
@@ -77,7 +81,9 @@
         <iOS.StatusBarConfig ux:Name="statusBarConfig" Style="Light" IsVisible="true"/>
 
         <PageControl Active="Scores" Dock="Fill">
-            <Page Name="Settings"/>
+            <Page Name="Settings">
+                <Button Text="Save" Clicked="{tmpDebug}" />
+            </Page>
             <Page Name="Scores">
 
                 <Panel ux:Name="addPanel" Margin="10" >
