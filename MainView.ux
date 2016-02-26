@@ -45,8 +45,12 @@
 
     function addPerson(sender)
     {
+        if (newPerson.value.length == 0)
+            return;
+
         console.log("Adding person " + newPerson.value);
         persons.add(new Person(newPerson.value, 0));
+        newPerson.value="";
     }
 
     function bumpScore(sender)
