@@ -43,6 +43,12 @@
         this.score = Observable(score);
     }
 
+    function addPerson(sender)
+    {
+        console.log("Adding person " + newPerson.value);
+        persons.add(new Person(newPerson.value, 0));
+    }
+
     function bumpScore(sender)
     {
         console.log("Scored " + sender.data.name);
@@ -55,9 +61,13 @@
         new Person("Eve", 0)
         );
 
+    var newPerson = Observable("");
+
     module.exports = {
         persons:persons,
         bumpScore:bumpScore,
+        addPerson:addPerson,
+        newPerson:newPerson,
         tmpDebug:Save //TODO delete
     }
 
@@ -65,7 +75,7 @@
 
     </JavaScript>
 
-    <Panel ux:Class="Plus" ux:Name="self">
+    <Panel ux:Class="Plus" ux:Name="self" HitTestMode="LocalBounds">
         <Rectangle Height="3" Width="25" Fill="#e5e8ed"/>
         <Rectangle Height="3" Width="25" Fill="#e5e8ed">
             <Rotation Degrees="90" />
@@ -88,12 +98,16 @@
                 <Button Text="Save" Clicked="{tmpDebug}" />
             </Page>
             <Page Name="Scores">
-
                 <Panel ux:Name="addPanel" Margin="10" >
-                    <Plus ux:Name="plus" HitTestMode="None">
+                    <Plus ux:Name="plus">
                         <Clicked>
                             <Toggle Target="adding" />
+                            <Toggle Target="addNewEnabled" />
                         </Clicked>
+                        <WhileTrue ux:Name="addNewEnabled" Value="false">
+                            <DebugAction Message="" /> <!-- this line prevents Fuse from crashing -->
+                            <Clicked Handler="{addPerson}" />
+                        </WhileTrue>
                     </Plus>
                     <StackPanel Opacity="1" ux:Name="addPersons" HitTestMode="LocalBoundsAndChildren">
                         <Each Items="{persons}">
@@ -104,7 +118,7 @@
                             </Text>
                         </Each>
                         <DockPanel>
-                            <TextInput />
+                            <TextInput Value="{newPerson}"/>
                             <Panel Dock="Right" Width="30" ux:Name="addNewPanel"/>
                         </DockPanel>
                     </StackPanel>
@@ -143,7 +157,6 @@
                     <Change addRect.CornerRadius="35" Duration=".3" Easing="CubicIn"/>
                     <Change addPersons.Opacity="0" Duration=".1" DurationBack=".1" Easing="CubicIn"/>
                     <Change addPersons.HitTestMode="LocalBounds" />
-                    <Change plus.HitTestMode="LocalBounds" />
                 </WhileTrue>
 
             </Page>
