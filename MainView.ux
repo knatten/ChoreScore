@@ -65,11 +65,14 @@
 
     </JavaScript>
 
-    <Panel ux:Class="Plus" ux:Name="self" Opacity="0">
+    <Panel ux:Class="Plus" ux:Name="self">
         <Rectangle Height="3" Width="25" Fill="#e5e8ed"/>
         <Rectangle Height="3" Width="25" Fill="#e5e8ed">
             <Rotation Degrees="90" />
         </Rectangle>
+        <LayoutAnimation>
+            <Move RelativeTo="WorldPositionChange" X="1" Y="1" Duration="0.3" Easing="CubicIn" />
+        </LayoutAnimation>
     </Panel>
 
     <ClientPanel>
@@ -100,7 +103,10 @@
                                 </Clicked>
                             </Text>
                         </Each>
-                        <TextInput />
+                        <DockPanel>
+                            <TextInput />
+                            <Panel Dock="Right" Width="30" ux:Name="addNewPanel"/>
+                        </DockPanel>
                     </StackPanel>
                     <Rectangle Fill="#fd9308" ux:Name="addRect"/>
                     <LayoutAnimation>
@@ -125,12 +131,17 @@
                 <WhileFalse ux:Name="adding">
                     <Change addPanel.LayoutMaster="corner" />
                     <Change buttonMode.Value="true" />
+                    <Change panelMode.Value="false" />
                 </WhileFalse>
+
+                <WhileTrue ux:Name="panelMode" Value="true">
+                    <DebugAction Message="we're a panel now" />
+                    <Change plus.LayoutMaster="addNewPanel" />
+                </WhileTrue>
 
                 <WhileTrue ux:Name="buttonMode">
                     <Change addRect.CornerRadius="35" Duration=".3" Easing="CubicIn"/>
                     <Change addPersons.Opacity="0" Duration=".1" DurationBack=".1" Easing="CubicIn"/>
-                    <Change plus.Opacity="1" Duration=".1" DurationBack=".1"/>
                     <Change addPersons.HitTestMode="LocalBounds" />
                     <Change plus.HitTestMode="LocalBounds" />
                 </WhileTrue>
