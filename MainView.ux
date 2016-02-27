@@ -108,23 +108,31 @@
                             <Toggle Target="adding" />
                         </Clicked>
                     </Plus>
-                    <StackPanel Opacity="1" ux:Name="addPersons" HitTestMode="LocalBoundsAndChildren">
-                        <Each Items="{persons}">
-                            <Text Value="{name}" Clicked="{bumpScore}" Alignment="Left">
-                                <Clicked>
-                                    <Toggle Target="adding" />
-                                </Clicked>
-                            </Text>
-                        </Each>
-                        <DockPanel>
-                            <TextInput Value="{newPerson}" PlaceholderText="Enter name"/>
-                            <Panel Dock="Right" Width="30" Height="30" ux:Name="addNewPanel" Clicked="{addPerson}" HitTestMode="LocalBounds">
-                                <Clicked>
-                                    <Toggle Target="adding" />
-                                </Clicked>
-                            </Panel>
-                        </DockPanel>
-                    </StackPanel>
+                    <DockPanel>
+                        <StackPanel Opacity="1" ux:Name="addPersons" Dock="Top">
+                            <Each Items="{persons}">
+                                <DockPanel HitTestMode="LocalBoundsAndChildren">
+                                    <Text Value="{name}" Clicked="{bumpScore}" Dock="Left"/>
+                                    <Clicked>
+                                        <Toggle Target="adding" />
+                                    </Clicked>
+                                </DockPanel>
+                            </Each>
+                            <DockPanel>
+                                <TextInput Value="{newPerson}" PlaceholderText="Enter name"/>
+                                <Panel Dock="Right" Width="30" Height="30" ux:Name="addNewPanel" Clicked="{addPerson}" HitTestMode="LocalBounds">
+                                    <Clicked>
+                                        <Toggle Target="adding" />
+                                    </Clicked>
+                                </Panel>
+                            </DockPanel>
+                        </StackPanel>
+                        <Panel HitTestMode="LocalBounds">
+                            <Clicked>
+                                <Toggle Target="adding" />
+                            </Clicked>
+                        </Panel>
+                    </DockPanel>
                     <Rectangle Fill="#fd9308" ux:Name="addRect"/>
                     <LayoutAnimation>
                         <Move RelativeTo="WorldPositionChange" X="1" Y="1" Duration="0.3" Easing="CubicIn" />
