@@ -64,6 +64,15 @@
         sender.data.score.value = sender.data.score.value + 1;
     }
 
+    function resetScores()
+    {
+        console.log("Resetting scores");
+        persons.forEach(function(p)
+            {
+                p.score.value = 0;
+            });
+    }
+
     var persons = Observable(
         new Person("Alice", 0),
         new Person("Bob", 0),
@@ -77,6 +86,7 @@
         bumpScore:bumpScore,
         addPerson:addPerson,
         newPerson:newPerson,
+        resetScores:resetScores,
         tmpDebug:Save //TODO delete
     }
 
@@ -94,6 +104,7 @@
         </LayoutAnimation>
     </Panel>
 
+    <Text ux:Class="SettingsHeader" FontSize="20" TextColor="#000" />
     <ClientPanel>
         <Style>
             <Text TextColor="#e5e8ed" FontSize="20" Margin="5"/>
@@ -104,7 +115,11 @@
 
         <PageControl Active="Scores" Dock="Fill" HitTestMode="LocalBoundsAndChildren">
             <Page Name="Settings">
-                <Button Text="Save" Clicked="{tmpDebug}" />
+                <StackPanel>
+                    <Button Text="Reset scores" Clicked="{resetScores}" />
+                    <SettingsHeader Value="Debug:"/>
+                    <Button Text="Save" Clicked="{tmpDebug}" />
+                </StackPanel>
             </Page>
             <Page Name="Scores">
                 <Panel ux:Name="addPanel" Margin="10" >
