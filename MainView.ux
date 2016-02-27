@@ -29,7 +29,12 @@
             console.log("Populating model");
             var deserialized = JSON.parse(content);
             persons.clear();
-            deserialized.forEach(function(p){persons.add(new Person(p.name, p.score))});
+            deserialized.forEach(
+                function(p)
+                {
+                    console.log("Adding from deserialized: " + p.name);
+                    persons.add(new Person(p.name, p.score));
+                });
             console.log("Done populating model");
         }, function(error){
             console.log("Failed to load data from " + personsFile)
