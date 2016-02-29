@@ -1,0 +1,70 @@
+<Page Name="Scores">
+    <Panel ux:Name="addPanel" Margin="10" >
+        <Plus ux:Name="plus" HitTestMode="LocalBounds">
+            <Clicked>
+                <Toggle Target="adding" />
+            </Clicked>
+        </Plus>
+        <DockPanel>
+            <StackPanel Opacity="1" ux:Name="addPersons" Dock="Top">
+                <Each Items="{persons}">
+                    <DockPanel HitTestMode="LocalBoundsAndChildren" Padding="5">
+                        <StdText Value="{name}" Clicked="{bumpScore}" Dock="Left"/>
+                        <Clicked>
+                            <Toggle Target="adding" />
+                        </Clicked>
+                    </DockPanel>
+                </Each>
+                <DockPanel>
+                    <StdTextInput Value="{newPerson}" PlaceholderText="Enter name"/>
+                    <Panel Dock="Right" Width="30" Height="30" ux:Name="addNewPanel" Clicked="{addPerson}" HitTestMode="LocalBounds">
+                        <Clicked>
+                            <Toggle Target="adding" />
+                        </Clicked>
+                    </Panel>
+                </DockPanel>
+            </StackPanel>
+            <Panel HitTestMode="LocalBounds">
+                <Clicked>
+                    <Toggle Target="adding" />
+                </Clicked>
+            </Panel>
+        </DockPanel>
+        <Rectangle Fill="#fd9308" ux:Name="addRect"/>
+        <LayoutAnimation>
+            <Move RelativeTo="WorldPositionChange" X="1" Y="1" Duration="0.3" Easing="CubicIn" />
+            <Resize RelativeTo="SizeChange" X="1" Y="1" Duration="0.3" Easing="CubicIn" />
+        </LayoutAnimation>
+    </Panel>
+
+    <Panel Alignment="BottomRight" ux:Name="corner" Height="70" Width="70" />
+
+    <ScrollView>
+        <StackPanel>
+            <Each Items="{persons}">
+                <ScoredPerson name="{name}" score="{score}" />
+            </Each>
+            <WhileEmpty Items="{persons}">
+                <StdText Background="#5A6571" Padding="10" Value="Use the + button to start"/>
+            </WhileEmpty>
+        </StackPanel>
+    </ScrollView>
+
+    <WhileFalse ux:Name="adding">
+        <Change addPanel.LayoutMaster="corner" />
+        <Change buttonMode.Value="true" />
+        <Change panelMode.Value="false" />
+    </WhileFalse>
+
+    <WhileTrue ux:Name="panelMode" Value="true">
+        <Change plus.LayoutMaster="addNewPanel" />
+        <Change plus.HitTestMode="None" />
+    </WhileTrue>
+
+    <WhileTrue ux:Name="buttonMode">
+        <Change addRect.CornerRadius="35" Duration=".3" Easing="CubicIn"/>
+        <Change addPersons.Opacity="0" Duration=".1" DurationBack=".1" Easing="CubicIn"/>
+        <Change addPersons.HitTestMode="LocalBounds" />
+    </WhileTrue>
+
+</Page>

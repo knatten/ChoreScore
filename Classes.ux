@@ -1,0 +1,22 @@
+<Panel>
+    <Panel ux:Class="Plus" ux:Name="self" HitTestMode="LocalBounds">
+        <Rectangle Height="3" Width="25" Fill="#e5e8ed"/>
+        <Rectangle Height="3" Width="25" Fill="#e5e8ed">
+            <Rotation Degrees="90" />
+        </Rectangle>
+        <LayoutAnimation>
+            <Move RelativeTo="WorldPositionChange" X="1" Y="1" Duration="0.3" Easing="CubicIn" />
+        </LayoutAnimation>
+    </Panel>
+
+    <Text ux:Class="StdText" TextColor="#e5e8ed" FontSize="20" />
+
+    <TextInput ux:Class="StdTextInput" TextColor="#e5e8ed" FontSize="20" Margin="5"/>
+
+    <DockPanel ux:Class="ScoredPerson" Background="#5A6571" Padding="5" Margin="2,1,2,1">
+        <string ux:Property="name" />
+        <string ux:Property="score" />
+        <StdText Value="{name}" />
+        <StdText Value="{score}" Dock="Right"/>
+    </DockPanel>
+</Panel>

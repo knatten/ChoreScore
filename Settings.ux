@@ -1,0 +1,5 @@
+<Page Name="Settings">
+    <StackPanel>
+        <Button Text="Reset scores" Clicked="{resetScores}" />
+    </StackPanel>
+</Page>
