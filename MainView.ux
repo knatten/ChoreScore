@@ -102,7 +102,7 @@
         </Style>
         <iOS.StatusBarConfig ux:Name="statusBarConfig" Style="Light" IsVisible="true"/>
 
-        <PageControl Active="Scores" Dock="Fill">
+        <PageControl Active="Scores" Dock="Fill" HitTestMode="LocalBoundsAndChildren">
             <Page Name="Settings">
                 <Button Text="Save" Clicked="{tmpDebug}" />
             </Page>
