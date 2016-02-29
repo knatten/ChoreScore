@@ -70,11 +70,7 @@
         Save();
     }
 
-    var persons = Observable(
-        new Person("Alice", 0),
-        new Person("Bob", 0),
-        new Person("Eve", 0)
-        );
+    var persons = Observable();
 
     var newPerson = Observable("");
 
@@ -164,6 +160,9 @@
                                 <Text Value="{score}" Dock="Right"/>
                             </DockPanel>
                         </Each>
+                        <WhileEmpty Items="{persons}">
+                            <Text Background="#5A6571" Padding="10" Value="Use the + button to start"/>
+                        </WhileEmpty>
                     </StackPanel>
                 </ScrollView>
 
