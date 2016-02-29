@@ -96,13 +96,18 @@
         </LayoutAnimation>
     </Panel>
 
+    <Text ux:Class="StdText" TextColor="#e5e8ed" FontSize="20" />
+    <TextInput ux:Class="StdTextInput" TextColor="#e5e8ed" FontSize="20" Margin="5"/>
+
+    <DockPanel Background="#5A6571" ux:Class="ScoredPerson" Padding="5" Margin="2,1,2,1">
+        <string ux:Property="name" />
+        <string ux:Property="score" />
+        <StdText Value="{name}" />
+        <StdText Value="{score}" Dock="Right"/>
+    </DockPanel>
+
     <Text ux:Class="SettingsHeader" FontSize="20" TextColor="#000" />
     <ClientPanel>
-        <Style>
-            <Text TextColor="#e5e8ed" FontSize="20" Margin="5"/>
-            <TextInput TextColor="#e5e8ed" FontSize="20" Margin="5"/>
-            <DockPanel Margin="2,1,2,1" />
-        </Style>
         <iOS.StatusBarConfig ux:Name="statusBarConfig" Style="Light" IsVisible="true"/>
 
         <PageControl Active="Scores" Dock="Fill" HitTestMode="LocalBoundsAndChildren">
@@ -121,15 +126,15 @@
                     <DockPanel>
                         <StackPanel Opacity="1" ux:Name="addPersons" Dock="Top">
                             <Each Items="{persons}">
-                                <DockPanel HitTestMode="LocalBoundsAndChildren">
-                                    <Text Value="{name}" Clicked="{bumpScore}" Dock="Left"/>
+                                <DockPanel HitTestMode="LocalBoundsAndChildren" Padding="5">
+                                    <StdText Value="{name}" Clicked="{bumpScore}" Dock="Left"/>
                                     <Clicked>
                                         <Toggle Target="adding" />
                                     </Clicked>
                                 </DockPanel>
                             </Each>
                             <DockPanel>
-                                <TextInput Value="{newPerson}" PlaceholderText="Enter name"/>
+                                <StdTextInput Value="{newPerson}" PlaceholderText="Enter name"/>
                                 <Panel Dock="Right" Width="30" Height="30" ux:Name="addNewPanel" Clicked="{addPerson}" HitTestMode="LocalBounds">
                                     <Clicked>
                                         <Toggle Target="adding" />
@@ -155,10 +160,7 @@
                 <ScrollView>
                     <StackPanel>
                         <Each Items="{persons}">
-                            <DockPanel Background="#5A6571">
-                                <Text Value="{name}" />
-                                <Text Value="{score}" Dock="Right"/>
-                            </DockPanel>
+                            <ScoredPerson name="{name}" score="{score}" />
                         </Each>
                         <WhileEmpty Items="{persons}">
                             <Text Background="#5A6571" Padding="10" Value="Use the + button to start"/>
