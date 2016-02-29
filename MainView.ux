@@ -1,15 +1,9 @@
 <App Theme="Basic" Background="#e5e8ed">
     <JavaScript>
     var Observable = require("FuseJS/Observable");
-    var Lifecycle = require("FuseJS/Lifecycle");
     var Storage = require("FuseJS/Storage");
     var personsFile = "persons.json";
 
-    Lifecycle.onEnteringBackground = function()
-    {
-        console.log("Entering background");
-        Save();
-    }
 
     var Save = function()
     {
@@ -56,12 +50,14 @@
         console.log("Adding person " + newPerson.value);
         persons.add(new Person(newPerson.value, 0));
         newPerson.value="";
+        Save();
     }
 
     function bumpScore(sender)
     {
         console.log("Scored " + sender.data.name);
         sender.data.score.value = sender.data.score.value + 1;
+        Save();
     }
 
     function resetScores()
@@ -71,6 +67,7 @@
             {
                 p.score.value = 0;
             });
+        Save();
     }
 
     var persons = Observable(
@@ -86,8 +83,7 @@
         bumpScore:bumpScore,
         addPerson:addPerson,
         newPerson:newPerson,
-        resetScores:resetScores,
-        tmpDebug:Save //TODO delete
+        resetScores:resetScores
     }
 
     Load();
@@ -117,8 +113,6 @@
             <Page Name="Settings">
                 <StackPanel>
                     <Button Text="Reset scores" Clicked="{resetScores}" />
-                    <SettingsHeader Value="Debug:"/>
-                    <Button Text="Save" Clicked="{tmpDebug}" />
                 </StackPanel>
             </Page>
             <Page Name="Scores">
