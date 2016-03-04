@@ -29,8 +29,12 @@ var Load = function()
                 persons.add(new Person(p.name, p.score));
             });
         console.log("Done populating model");
+        debug();
     }, function(error){
         console.log("Failed to load data from " + personsFile)
+        console.log(error);
+    }).catch(function(error){
+        console.log("CAUGHT!");
         console.log(error);
     });
 }
@@ -57,6 +61,7 @@ function bumpScore(sender)
     console.log("Scored " + sender.data.name);
     sender.data.score.value = sender.data.score.value + 1;
     Save();
+    sortPersons();
 }
 
 function resetScores()
@@ -73,20 +78,49 @@ function debug()
 {
     console.log("Persons is now " + persons.length + " long");
     persons.forEach(function(p){
-        console.log(p.name + p.score);
+        console.log("  " + p.name + p.score);
+    });
+    console.log("sortedPersons is now " + sortedPersons.length + " long");
+    sortedPersons.forEach(function(p){
+        console.log("  " + p.name + p.score);
     });
 }
 
 var persons = Observable();
+var sortedPersons = Observable();
+
+function sortPersons()
+{
+    console.log("## Sorting persons")
+    console.log("  persons is now " + persons.length);
+    sortedPersons.clear();
+    var tmp = [];
+    persons.forEach(function(p){
+        tmp.push(p);
+    });
+    console.log("  tmp is now " + tmp.length);
+    tmp.sort(function(a,b)
+    {
+        return a.score.value < b.score.value;
+    });
+    for (var i=0; i< tmp.length; i++)
+    {
+        sortedPersons.add(tmp[i]);
+    }
+}
+
+persons.addSubscriber(sortPersons);
 
 var newPerson = Observable("");
 
 module.exports = {
     persons:persons,
+    sortedPersons:sortedPersons,
     bumpScore:bumpScore,
     addPerson:addPerson,
     newPerson:newPerson,
     resetScores:resetScores
 }
 
+console.log(" ");
 Load();
