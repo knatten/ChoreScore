@@ -6,6 +6,7 @@ var personsFile = "persons.json";
 var Save = function()
 {
     console.log("Saving data to " + personsFile);
+    debug();
     var serialized = [];
     persons.forEach(function(p){serialized.push({'name':p.name, 'score':p.score.value})});
     var result = Storage.writeSync(personsFile, JSON.stringify(serialized));
@@ -66,6 +67,14 @@ function resetScores()
             p.score.value = 0;
         });
     Save();
+}
+
+function debug()
+{
+    console.log("Persons is now " + persons.length + " long");
+    persons.forEach(function(p){
+        console.log(p.name + p.score);
+    });
 }
 
 var persons = Observable();
