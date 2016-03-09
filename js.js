@@ -6,7 +6,7 @@ var personsFile = "persons.json";
 var Save = function()
 {
     console.log("Saving data to " + personsFile);
-    debug();
+    //debug();
     var serialized = [];
     persons.forEach(function(p){serialized.push({'name':p.name, 'score':p.score.value})});
     var result = Storage.writeSync(personsFile, JSON.stringify(serialized));
@@ -29,7 +29,7 @@ var Load = function()
                 persons.add(new Person(p.name, p.score));
             });
         console.log("Done populating model");
-        debug();
+        //debug();
     }, function(error){
         console.log("Failed to load data from " + personsFile)
         console.log(error);
