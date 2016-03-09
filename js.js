@@ -127,8 +127,10 @@ function sortPersons()
 persons.addSubscriber(sortPersons);
 
 var newPerson = Observable("");
+var title = Observable("ChoreScore");
 
 module.exports = {
+    title:title,
     sortedByScore:sortedByScore,
     sortedByName:sortedByName,
     bumpScore:bumpScore,

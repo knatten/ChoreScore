@@ -1,5 +1,9 @@
 <Page Name="Settings">
     <StackPanel>
+        <DockPanel>
+            <DarkText Alignment="CenterLeft" Dock="Left" Value="Title:"/>
+            <DarkTextInput Value="{title}" />
+        </DockPanel>
         <Button Text="Reset scores" Clicked="{resetScores}" />
     </StackPanel>
 </Page>

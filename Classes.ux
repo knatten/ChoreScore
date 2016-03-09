@@ -9,14 +9,17 @@
         </LayoutAnimation>
     </Panel>
 
-    <Text ux:Class="StdText" TextColor="#e5e8ed" FontSize="20" />
+    <Text ux:Class="LightText" TextColor="#e5e8ed" FontSize="20" />
+    <Text ux:Class="DarkText" TextColor="#5a6571" FontSize="20" />
+    <Text ux:Class="Header" FontSize="20" Padding="5" Background="#a2a9af" TextColor="#5a6571" Margin="2,1,2,1"/>
 
-    <TextInput ux:Class="StdTextInput" TextColor="#e5e8ed" FontSize="20" Margin="5"/>
+    <TextInput ux:Class="LightTextInput" TextColor="#e5e8ed" FontSize="20" Margin="5"/>
+    <TextInput ux:Class="DarkTextInput" TextColor="#5a6571" FontSize="20" Margin="5"/>
 
     <DockPanel ux:Class="ScoredPerson" Background="#5A6571" Padding="5" Margin="2,1,2,1">
         <string ux:Property="name" />
         <string ux:Property="score" />
-        <StdText Value="{name}" />
-        <StdText Value="{score}" Dock="Right"/>
+        <LightText Value="{name}" />
+        <LightText Value="{score}" Dock="Right"/>
     </DockPanel>
 </Panel>

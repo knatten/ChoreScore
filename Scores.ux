@@ -9,14 +9,14 @@
             <StackPanel Opacity="1" ux:Name="addPersons" Dock="Top">
                 <Each Items="{sortedByName}">
                     <DockPanel HitTestMode="LocalBoundsAndChildren" Padding="5">
-                        <StdText Value="{name}" Clicked="{bumpScore}" Dock="Left"/>
+                        <LightText Value="{name}" Clicked="{bumpScore}" Dock="Left"/>
                         <Clicked>
                             <Toggle Target="adding" />
                         </Clicked>
                     </DockPanel>
                 </Each>
                 <DockPanel>
-                    <StdTextInput Value="{newPerson}" PlaceholderText="Enter name"/>
+                    <LightTextInput Value="{newPerson}" PlaceholderText="Enter name"/>
                     <Panel Dock="Right" Width="30" Height="30" ux:Name="addNewPanel" Clicked="{addPerson}" HitTestMode="LocalBounds">
                         <Clicked>
                             <Toggle Target="adding" />
@@ -39,16 +39,19 @@
 
     <Panel Alignment="BottomRight" ux:Name="corner" Height="70" Width="70" />
 
-    <ScrollView>
-        <StackPanel>
-            <Each Items="{sortedByScore}">
-                <ScoredPerson name="{name}" score="{score}" />
-            </Each>
-            <WhileEmpty Items="{sortedByScore}">
-                <StdText Background="#5A6571" Padding="10" Value="Use the + button to start"/>
-            </WhileEmpty>
-        </StackPanel>
-    </ScrollView>
+    <DockPanel>
+        <Header Dock="Top" Value="{title}" />
+        <ScrollView>
+            <StackPanel>
+                <Each Items="{sortedByScore}">
+                    <ScoredPerson name="{name}" score="{score}" />
+                </Each>
+                <WhileEmpty Items="{sortedByScore}">
+                    <LightText Background="#5A6571" Padding="10" Value="Use the + button to start"/>
+                </WhileEmpty>
+            </StackPanel>
+        </ScrollView>
+    </DockPanel>
 
     <WhileFalse ux:Name="adding">
         <Change addPanel.LayoutMaster="corner" />
