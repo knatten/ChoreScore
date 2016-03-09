@@ -47,7 +47,14 @@ function Person(name, score)
 
 function addPerson(sender)
 {
-    if (newPerson.value.length == 0)
+    var found = false;
+    persons.forEach(function(p){
+        if (p.name == newPerson.value)
+        {
+            found = true;
+        }
+    });
+    if (found || newPerson.value.length == 0)
         return;
 
     console.log("Adding person " + newPerson.value);
