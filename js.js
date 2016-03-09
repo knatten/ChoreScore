@@ -88,24 +88,32 @@ function debug()
 
 var persons = Observable();
 var sortedByScore = Observable();
+var sortedByName = Observable();
 
 function sortPersons()
 {
     console.log("## Sorting persons")
-    console.log("  persons is now " + persons.length);
-    sortedByScore.clear();
     var tmp = [];
     persons.forEach(function(p){
         tmp.push(p);
     });
-    console.log("  tmp is now " + tmp.length);
     tmp.sort(function(a,b)
     {
         return a.score.value < b.score.value;
     });
+    sortedByScore.clear();
     for (var i=0; i< tmp.length; i++)
     {
         sortedByScore.add(tmp[i]);
+    }
+    tmp.sort(function(a,b)
+    {
+        return a.name > b.name;
+    });
+    sortedByName.clear();
+    for (var i=0; i< tmp.length; i++)
+    {
+        sortedByName.add(tmp[i]);
     }
 }
 
@@ -114,8 +122,8 @@ persons.addSubscriber(sortPersons);
 var newPerson = Observable("");
 
 module.exports = {
-    persons:persons,
     sortedByScore:sortedByScore,
+    sortedByName:sortedByName,
     bumpScore:bumpScore,
     addPerson:addPerson,
     newPerson:newPerson,

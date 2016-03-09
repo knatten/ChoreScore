@@ -7,7 +7,7 @@
         </Plus>
         <DockPanel>
             <StackPanel Opacity="1" ux:Name="addPersons" Dock="Top">
-                <Each Items="{persons}">
+                <Each Items="{sortedByName}">
                     <DockPanel HitTestMode="LocalBoundsAndChildren" Padding="5">
                         <StdText Value="{name}" Clicked="{bumpScore}" Dock="Left"/>
                         <Clicked>
