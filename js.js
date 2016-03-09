@@ -80,20 +80,20 @@ function debug()
     persons.forEach(function(p){
         console.log("  " + p.name + p.score);
     });
-    console.log("sortedPersons is now " + sortedPersons.length + " long");
-    sortedPersons.forEach(function(p){
+    console.log("sortedByScore is now " + sortedByScore.length + " long");
+    sortedByScore.forEach(function(p){
         console.log("  " + p.name + p.score);
     });
 }
 
 var persons = Observable();
-var sortedPersons = Observable();
+var sortedByScore = Observable();
 
 function sortPersons()
 {
     console.log("## Sorting persons")
     console.log("  persons is now " + persons.length);
-    sortedPersons.clear();
+    sortedByScore.clear();
     var tmp = [];
     persons.forEach(function(p){
         tmp.push(p);
@@ -105,7 +105,7 @@ function sortPersons()
     });
     for (var i=0; i< tmp.length; i++)
     {
-        sortedPersons.add(tmp[i]);
+        sortedByScore.add(tmp[i]);
     }
 }
 
@@ -115,7 +115,7 @@ var newPerson = Observable("");
 
 module.exports = {
     persons:persons,
-    sortedPersons:sortedPersons,
+    sortedByScore:sortedByScore,
     bumpScore:bumpScore,
     addPerson:addPerson,
     newPerson:newPerson,

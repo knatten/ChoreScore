@@ -41,10 +41,10 @@
 
     <ScrollView>
         <StackPanel>
-            <Each Items="{sortedPersons}">
+            <Each Items="{sortedByScore}">
                 <ScoredPerson name="{name}" score="{score}" />
             </Each>
-            <WhileEmpty Items="{sortedPersons}">
+            <WhileEmpty Items="{sortedByScore}">
                 <StdText Background="#5A6571" Padding="10" Value="Use the + button to start"/>
             </WhileEmpty>
         </StackPanel>
