@@ -5,6 +5,15 @@
             <DarkTextInput Value="{title}" />
         </DockPanel>
         <Button Text="Reset scores" Clicked="{resetScores}" />
+        <DarkText Value="Recent activity"/>
+        <StackPanel>
+            <Each Items="{recentActivity}">
+                <DockPanel>
+                    <DarkText Value="{description}"/>
+                    <DarkText Value="{age}" Dock="Right"/>
+                </DockPanel>
+            </Each>
+        </StackPanel>
         <DarkText Value="Remove names"/>
         <StackPanel>
             <Each Items="{sortedByName}">
@@ -12,4 +21,7 @@
             </Each>
         </StackPanel>
     </StackPanel>
+    <WhileActive>
+        <Callback Handler="{updateEventAges}"/>
+    </WhileActive>
 </Page>

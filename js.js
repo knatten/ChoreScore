@@ -2,7 +2,6 @@ var Observable = require("FuseJS/Observable");
 var Storage = require("FuseJS/Storage");
 var personsFile = "persons.json";
 
-
 var Save = function()
 {
     console.log("Saving data to " + personsFile);
@@ -44,6 +43,39 @@ function Person(name, score)
     this.score = Observable(score);
 }
 
+function Event(description)
+{
+    this.description = description;
+    this.time = Date.now();
+    this.age = Observable("0");
+}
+
+function updateEventAges()
+{
+    recentActivity.forEach(function(event){
+        event.age.value = timeConversion(Date.now() - event.time);
+    });
+}
+
+function timeConversion(millisec)
+{
+
+    var seconds = Math.round(millisec / 1000);
+    var minutes = Math.round(millisec / (1000 * 60));
+    var hours = Math.round(millisec / (1000 * 60 * 60));
+    var days = Math.round(millisec / (1000 * 60 * 60 * 24));
+
+    if (seconds < 60) {
+        return seconds + " s.";
+    } else if (minutes < 60) {
+        return minutes + " m.";
+    } else if (hours < 24) {
+        return hours + " h.";
+    } else {
+        return days + " d."
+    }
+}
+
 function addPerson(sender)
 {
     var found = false;
@@ -72,6 +104,7 @@ function bumpScore(sender)
 {
     console.log("Scored " + sender.data.name);
     sender.data.score.value = sender.data.score.value + 1;
+    recentActivity.add(new Event("Scored " + sender.data.name));
     Save();
     sortPersons();
 }
@@ -101,6 +134,7 @@ function debug()
 var persons = Observable();
 var sortedByScore = Observable();
 var sortedByName = Observable();
+var recentActivity = Observable();
 
 function sortPersons()
 {
@@ -135,13 +169,15 @@ var title = Observable("ChoreScore");
 
 module.exports = {
     title:title,
+    recentActivity:recentActivity,
     sortedByScore:sortedByScore,
     sortedByName:sortedByName,
     bumpScore:bumpScore,
     addPerson:addPerson,
     removePerson:removePerson,
     newPerson:newPerson,
-    resetScores:resetScores
+    resetScores:resetScores,
+    updateEventAges:updateEventAges
 }
 
 console.log(" ");
