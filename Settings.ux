@@ -5,5 +5,11 @@
             <DarkTextInput Value="{title}" />
         </DockPanel>
         <Button Text="Reset scores" Clicked="{resetScores}" />
+        <DarkText Value="Remove names"/>
+        <StackPanel>
+            <Each Items="{sortedByName}">
+                <DarkText Value="{name}" Clicked="{removePerson}"/>
+            </Each>
+        </StackPanel>
     </StackPanel>
 </Page>

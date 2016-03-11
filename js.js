@@ -25,7 +25,6 @@ var Load = function()
         deserialized.forEach(
             function(p)
             {
-                console.log("Adding from deserialized: " + p.name);
                 persons.add(new Person(p.name, p.score));
             });
         console.log("Done populating model");
@@ -61,6 +60,12 @@ function addPerson(sender)
     persons.add(new Person(newPerson.value, 0));
     newPerson.value="";
     Save();
+}
+
+function removePerson(sender)
+{
+    console.log("Removing person " + sender.data.name);
+    persons.remove(sender.data);
 }
 
 function bumpScore(sender)
@@ -99,7 +104,6 @@ var sortedByName = Observable();
 
 function sortPersons()
 {
-    console.log("## Sorting persons")
     var tmp = [];
     persons.forEach(function(p){
         tmp.push(p);
@@ -135,6 +139,7 @@ module.exports = {
     sortedByName:sortedByName,
     bumpScore:bumpScore,
     addPerson:addPerson,
+    removePerson:removePerson,
     newPerson:newPerson,
     resetScores:resetScores
 }
